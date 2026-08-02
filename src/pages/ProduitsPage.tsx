@@ -18,23 +18,10 @@ import {
   Mail,
   MapPin,
   Phone,
-  Headphones,
-  Watch,
-  Keyboard,
-  Volume2,
-  Mouse,
-  Camera,
-  Lightbulb,
-  Bot,
-  Zap,
-  Backpack,
-  Monitor,
-  Plug,
 } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import { GithubIcon, XIcon, InstagramIcon } from '@/components/SocialIcons'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import {
@@ -60,12 +47,11 @@ type Produit = {
   description: string
   prix: number
   ancienPrix?: number
-  icone: LucideIcon
+  image: string
   badge?: string
   categorie: Categorie
   note: number
   avis: number
-  degrade: string
 }
 
 const categories: Categorie[] = ['Audio', 'Informatique', 'Maison', 'Accessoires']
@@ -77,35 +63,32 @@ const produits: Produit[] = [
     description: "Réduction de bruit active, 30h d'autonomie.",
     prix: 89.99,
     ancienPrix: 119.99,
-    icone: Headphones,
+    image: '/products/casque.jpg',
     badge: 'Populaire',
     categorie: 'Audio',
     note: 4.8,
     avis: 312,
-    degrade: 'from-violet-500/15 to-fuchsia-500/15',
   },
   {
     id: 2,
     nom: 'Montre connectée',
     description: 'Suivi santé, GPS intégré, étanche.',
     prix: 149.0,
-    icone: Watch,
+    image: '/products/montre.jpg',
     badge: 'Nouveau',
     categorie: 'Accessoires',
     note: 4.6,
     avis: 128,
-    degrade: 'from-sky-500/15 to-cyan-500/15',
   },
   {
     id: 3,
     nom: 'Clavier mécanique',
     description: 'Switches rétroéclairés, format compact.',
     prix: 74.5,
-    icone: Keyboard,
+    image: '/products/clavier.jpg',
     categorie: 'Informatique',
     note: 4.7,
     avis: 204,
-    degrade: 'from-amber-500/15 to-orange-500/15',
   },
   {
     id: 4,
@@ -113,45 +96,41 @@ const produits: Produit[] = [
     description: "Son 360°, résistante à l'eau.",
     prix: 59.9,
     ancienPrix: 79.9,
-    icone: Volume2,
+    image: '/products/enceinte.jpg',
     badge: 'Promo',
     categorie: 'Audio',
     note: 4.5,
     avis: 96,
-    degrade: 'from-rose-500/15 to-red-500/15',
   },
   {
     id: 5,
     nom: 'Souris ergonomique',
     description: 'Précision élevée, prise en main confortable.',
     prix: 39.99,
-    icone: Mouse,
+    image: '/products/souris.jpg',
     categorie: 'Informatique',
     note: 4.4,
     avis: 87,
-    degrade: 'from-emerald-500/15 to-teal-500/15',
   },
   {
     id: 6,
     nom: 'Webcam HD',
     description: 'Full HD 1080p, micro intégré.',
     prix: 45.0,
-    icone: Camera,
+    image: '/products/webcam.jpg',
     categorie: 'Informatique',
     note: 4.3,
     avis: 65,
-    degrade: 'from-indigo-500/15 to-blue-500/15',
   },
   {
     id: 7,
     nom: 'Lampe connectée',
     description: 'Contrôle vocal, 16 millions de couleurs.',
     prix: 34.9,
-    icone: Lightbulb,
+    image: '/products/lampe.jpg',
     categorie: 'Maison',
     note: 4.6,
     avis: 152,
-    degrade: 'from-yellow-500/15 to-amber-500/15',
   },
   {
     id: 8,
@@ -159,57 +138,52 @@ const produits: Produit[] = [
     description: 'Navigation laser, vidage automatique.',
     prix: 299.0,
     ancienPrix: 349.0,
-    icone: Bot,
+    image: '/products/aspirateur.jpg',
     badge: 'Promo',
     categorie: 'Maison',
     note: 4.7,
     avis: 219,
-    degrade: 'from-slate-500/15 to-gray-500/15',
   },
   {
     id: 9,
     nom: 'Chargeur sans fil',
     description: 'Charge rapide 15W, design compact.',
     prix: 24.9,
-    icone: Zap,
+    image: '/products/chargeur.jpg',
     categorie: 'Accessoires',
     note: 4.2,
     avis: 54,
-    degrade: 'from-lime-500/15 to-green-500/15',
   },
   {
     id: 10,
     nom: 'Sac à dos urbain',
     description: 'Compartiment laptop 15", résistant à la pluie.',
     prix: 54.0,
-    icone: Backpack,
+    image: '/products/sac.jpg',
     categorie: 'Accessoires',
     note: 4.5,
     avis: 73,
-    degrade: 'from-orange-500/15 to-amber-500/15',
   },
   {
     id: 11,
     nom: 'Écran 27" 4K',
     description: 'Dalle IPS, 99% sRGB, réglable en hauteur.',
     prix: 329.0,
-    icone: Monitor,
+    image: '/products/ecran.jpg',
     badge: 'Nouveau',
     categorie: 'Informatique',
     note: 4.9,
     avis: 141,
-    degrade: 'from-blue-500/15 to-indigo-500/15',
   },
   {
     id: 12,
     nom: 'Prise connectée',
     description: 'Pilotage à distance, mesure de consommation.',
     prix: 19.9,
-    icone: Plug,
+    image: '/products/prise.jpg',
     categorie: 'Maison',
     note: 4.1,
     avis: 39,
-    degrade: 'from-teal-500/15 to-cyan-500/15',
   },
 ]
 
@@ -256,14 +230,11 @@ function PanierSheet({
               key={produit.id}
               className="flex items-center gap-3 rounded-lg border p-3"
             >
-              <div
-                className={cn(
-                  'flex size-12 shrink-0 items-center justify-center rounded-md bg-gradient-to-br',
-                  produit.degrade
-                )}
-              >
-                <produit.icone className="size-6 text-foreground/70" strokeWidth={1.5} />
-              </div>
+              <img
+                src={produit.image}
+                alt={produit.nom}
+                className="size-12 shrink-0 rounded-md bg-muted object-cover"
+              />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{produit.nom}</p>
                 <p className="text-sm text-muted-foreground">
@@ -384,10 +355,6 @@ export default function ProduitsPage() {
     (total, l) => total + l.produit.prix * l.quantite,
     0
   )
-
-  const IconeVedette1 = produits[0].icone
-  const IconeVedette2 = produits[10].icone
-  const IconeVedette3 = produits[7].icone
 
   const produitsFiltres = useMemo(() => {
     return produits.filter((p) => {
@@ -511,16 +478,11 @@ export default function ProduitsPage() {
           {/* Cartes produits décoratives */}
           <div className="relative hidden h-80 lg:block" aria-hidden="true">
             <Card className="absolute left-4 top-2 w-52 -rotate-6 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
-              <CardHeader
-                className={cn(
-                  'flex items-center justify-center bg-gradient-to-br p-6',
-                  produits[0].degrade
-                )}
-              >
-                <div className="flex size-16 items-center justify-center rounded-xl bg-background/70 shadow-sm">
-                  <IconeVedette1 className="size-8 text-foreground/75" strokeWidth={1.5} />
-                </div>
-              </CardHeader>
+              <img
+                src={produits[0].image}
+                alt={produits[0].nom}
+                className="h-28 w-full object-cover"
+              />
               <CardContent className="space-y-1 p-3.5">
                 <p className="text-sm font-semibold">{produits[0].nom}</p>
                 <p className="text-sm font-semibold text-primary">
@@ -529,16 +491,11 @@ export default function ProduitsPage() {
               </CardContent>
             </Card>
             <Card className="absolute right-2 top-24 w-52 rotate-6 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
-              <CardHeader
-                className={cn(
-                  'flex items-center justify-center bg-gradient-to-br p-6',
-                  produits[10].degrade
-                )}
-              >
-                <div className="flex size-16 items-center justify-center rounded-xl bg-background/70 shadow-sm">
-                  <IconeVedette2 className="size-8 text-foreground/75" strokeWidth={1.5} />
-                </div>
-              </CardHeader>
+              <img
+                src={produits[10].image}
+                alt={produits[10].nom}
+                className="h-28 w-full object-cover"
+              />
               <CardContent className="space-y-1 p-3.5">
                 <p className="text-sm font-semibold">{produits[10].nom}</p>
                 <p className="text-sm font-semibold text-primary">
@@ -547,16 +504,11 @@ export default function ProduitsPage() {
               </CardContent>
             </Card>
             <Card className="absolute bottom-2 left-16 w-52 -rotate-3 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
-              <CardHeader
-                className={cn(
-                  'flex items-center justify-center bg-gradient-to-br p-6',
-                  produits[7].degrade
-                )}
-              >
-                <div className="flex size-16 items-center justify-center rounded-xl bg-background/70 shadow-sm">
-                  <IconeVedette3 className="size-8 text-foreground/75" strokeWidth={1.5} />
-                </div>
-              </CardHeader>
+              <img
+                src={produits[7].image}
+                alt={produits[7].nom}
+                className="h-28 w-full object-cover"
+              />
               <CardContent className="space-y-1 p-3.5">
                 <p className="text-sm font-semibold">{produits[7].nom}</p>
                 <p className="text-sm font-semibold text-primary">
@@ -652,27 +604,20 @@ export default function ProduitsPage() {
             {produitsFiltres.map((produit) => (
               <Card
                 key={produit.id}
-                className="group flex h-full flex-col overflow-hidden py-0 gap-0 border-border/60 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+                className="group relative flex h-full flex-col overflow-hidden py-0 gap-0 border-border/60 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
               >
-                <CardHeader
-                  className={cn(
-                    'relative flex items-center justify-center bg-gradient-to-br p-8',
-                    produit.degrade
-                  )}
-                >
-                  {produit.badge && (
-                    <Badge className="absolute left-3 top-3" variant="default">
-                      {produit.badge}
-                    </Badge>
-                  )}
-                  <div className="flex size-24 items-center justify-center rounded-2xl bg-background/70 shadow-sm ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-105">
-                    <produit.icone
-                      className="size-11 text-foreground/75"
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    />
-                  </div>
-                </CardHeader>
+                {produit.badge && (
+                  <Badge className="absolute left-3 top-3 z-10" variant="default">
+                    {produit.badge}
+                  </Badge>
+                )}
+                <div className="h-48 w-full overflow-hidden">
+                  <img
+                    src={produit.image}
+                    alt={produit.nom}
+                    className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
                 <CardContent className="flex-1 space-y-1.5 p-5">
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold leading-tight">{produit.nom}</h3>

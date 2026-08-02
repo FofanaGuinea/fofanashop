@@ -16,7 +16,22 @@ import {
   Trash2,
   ArrowRight,
   Mail,
+  MapPin,
+  Phone,
+  Headphones,
+  Watch,
+  Keyboard,
+  Volume2,
+  Mouse,
+  Camera,
+  Lightbulb,
+  Bot,
+  Zap,
+  Backpack,
+  Monitor,
+  Plug,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { GithubIcon, XIcon, InstagramIcon } from '@/components/SocialIcons'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
@@ -45,7 +60,7 @@ type Produit = {
   description: string
   prix: number
   ancienPrix?: number
-  emoji: string
+  icone: LucideIcon
   badge?: string
   categorie: Categorie
   note: number
@@ -62,7 +77,7 @@ const produits: Produit[] = [
     description: "Réduction de bruit active, 30h d'autonomie.",
     prix: 89.99,
     ancienPrix: 119.99,
-    emoji: '🎧',
+    icone: Headphones,
     badge: 'Populaire',
     categorie: 'Audio',
     note: 4.8,
@@ -74,7 +89,7 @@ const produits: Produit[] = [
     nom: 'Montre connectée',
     description: 'Suivi santé, GPS intégré, étanche.',
     prix: 149.0,
-    emoji: '⌚',
+    icone: Watch,
     badge: 'Nouveau',
     categorie: 'Accessoires',
     note: 4.6,
@@ -86,7 +101,7 @@ const produits: Produit[] = [
     nom: 'Clavier mécanique',
     description: 'Switches rétroéclairés, format compact.',
     prix: 74.5,
-    emoji: '⌨️',
+    icone: Keyboard,
     categorie: 'Informatique',
     note: 4.7,
     avis: 204,
@@ -98,7 +113,7 @@ const produits: Produit[] = [
     description: "Son 360°, résistante à l'eau.",
     prix: 59.9,
     ancienPrix: 79.9,
-    emoji: '🔊',
+    icone: Volume2,
     badge: 'Promo',
     categorie: 'Audio',
     note: 4.5,
@@ -110,7 +125,7 @@ const produits: Produit[] = [
     nom: 'Souris ergonomique',
     description: 'Précision élevée, prise en main confortable.',
     prix: 39.99,
-    emoji: '🖱️',
+    icone: Mouse,
     categorie: 'Informatique',
     note: 4.4,
     avis: 87,
@@ -121,7 +136,7 @@ const produits: Produit[] = [
     nom: 'Webcam HD',
     description: 'Full HD 1080p, micro intégré.',
     prix: 45.0,
-    emoji: '📷',
+    icone: Camera,
     categorie: 'Informatique',
     note: 4.3,
     avis: 65,
@@ -132,7 +147,7 @@ const produits: Produit[] = [
     nom: 'Lampe connectée',
     description: 'Contrôle vocal, 16 millions de couleurs.',
     prix: 34.9,
-    emoji: '💡',
+    icone: Lightbulb,
     categorie: 'Maison',
     note: 4.6,
     avis: 152,
@@ -144,7 +159,7 @@ const produits: Produit[] = [
     description: 'Navigation laser, vidage automatique.',
     prix: 299.0,
     ancienPrix: 349.0,
-    emoji: '🤖',
+    icone: Bot,
     badge: 'Promo',
     categorie: 'Maison',
     note: 4.7,
@@ -156,7 +171,7 @@ const produits: Produit[] = [
     nom: 'Chargeur sans fil',
     description: 'Charge rapide 15W, design compact.',
     prix: 24.9,
-    emoji: '🔌',
+    icone: Zap,
     categorie: 'Accessoires',
     note: 4.2,
     avis: 54,
@@ -167,7 +182,7 @@ const produits: Produit[] = [
     nom: 'Sac à dos urbain',
     description: 'Compartiment laptop 15", résistant à la pluie.',
     prix: 54.0,
-    emoji: '🎒',
+    icone: Backpack,
     categorie: 'Accessoires',
     note: 4.5,
     avis: 73,
@@ -178,7 +193,7 @@ const produits: Produit[] = [
     nom: 'Écran 27" 4K',
     description: 'Dalle IPS, 99% sRGB, réglable en hauteur.',
     prix: 329.0,
-    emoji: '🖥️',
+    icone: Monitor,
     badge: 'Nouveau',
     categorie: 'Informatique',
     note: 4.9,
@@ -190,7 +205,7 @@ const produits: Produit[] = [
     nom: 'Prise connectée',
     description: 'Pilotage à distance, mesure de consommation.',
     prix: 19.9,
-    emoji: '🔋',
+    icone: Plug,
     categorie: 'Maison',
     note: 4.1,
     avis: 39,
@@ -243,11 +258,11 @@ function PanierSheet({
             >
               <div
                 className={cn(
-                  'flex size-12 shrink-0 items-center justify-center rounded-md bg-gradient-to-br text-2xl',
+                  'flex size-12 shrink-0 items-center justify-center rounded-md bg-gradient-to-br',
                   produit.degrade
                 )}
               >
-                {produit.emoji}
+                <produit.icone className="size-6 text-foreground/70" strokeWidth={1.5} />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{produit.nom}</p>
@@ -369,6 +384,10 @@ export default function ProduitsPage() {
     (total, l) => total + l.produit.prix * l.quantite,
     0
   )
+
+  const IconeVedette1 = produits[0].icone
+  const IconeVedette2 = produits[10].icone
+  const IconeVedette3 = produits[7].icone
 
   const produitsFiltres = useMemo(() => {
     return produits.filter((p) => {
@@ -498,7 +517,9 @@ export default function ProduitsPage() {
                   produits[0].degrade
                 )}
               >
-                <span className="text-4xl">{produits[0].emoji}</span>
+                <div className="flex size-16 items-center justify-center rounded-xl bg-background/70 shadow-sm">
+                  <IconeVedette1 className="size-8 text-foreground/75" strokeWidth={1.5} />
+                </div>
               </CardHeader>
               <CardContent className="space-y-1 p-3.5">
                 <p className="text-sm font-semibold">{produits[0].nom}</p>
@@ -514,7 +535,9 @@ export default function ProduitsPage() {
                   produits[10].degrade
                 )}
               >
-                <span className="text-4xl">{produits[10].emoji}</span>
+                <div className="flex size-16 items-center justify-center rounded-xl bg-background/70 shadow-sm">
+                  <IconeVedette2 className="size-8 text-foreground/75" strokeWidth={1.5} />
+                </div>
               </CardHeader>
               <CardContent className="space-y-1 p-3.5">
                 <p className="text-sm font-semibold">{produits[10].nom}</p>
@@ -530,7 +553,9 @@ export default function ProduitsPage() {
                   produits[7].degrade
                 )}
               >
-                <span className="text-4xl">{produits[7].emoji}</span>
+                <div className="flex size-16 items-center justify-center rounded-xl bg-background/70 shadow-sm">
+                  <IconeVedette3 className="size-8 text-foreground/75" strokeWidth={1.5} />
+                </div>
               </CardHeader>
               <CardContent className="space-y-1 p-3.5">
                 <p className="text-sm font-semibold">{produits[7].nom}</p>
@@ -640,12 +665,13 @@ export default function ProduitsPage() {
                       {produit.badge}
                     </Badge>
                   )}
-                  <span
-                    className="text-6xl transition-transform duration-300 group-hover:scale-110"
-                    aria-hidden="true"
-                  >
-                    {produit.emoji}
-                  </span>
+                  <div className="flex size-24 items-center justify-center rounded-2xl bg-background/70 shadow-sm ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-105">
+                    <produit.icone
+                      className="size-11 text-foreground/75"
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                    />
+                  </div>
                 </CardHeader>
                 <CardContent className="flex-1 space-y-1.5 p-5">
                   <div className="flex items-start justify-between gap-2">
@@ -740,7 +766,7 @@ export default function ProduitsPage() {
           <div>
             <p className="mb-3 text-sm font-semibold">Entreprise</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              {['À propos', 'Livraison & retours', 'Garantie', 'Contact'].map((lien) => (
+              {['À propos', 'Livraison & retours', 'Garantie'].map((lien) => (
                 <li key={lien}>
                   <a
                     href="#"
@@ -751,6 +777,32 @@ export default function ProduitsPage() {
                   </a>
                 </li>
               ))}
+            </ul>
+
+            <p className="mt-5 mb-3 text-sm font-semibold">Contact</p>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-start gap-2">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+                <span>Aéroport, commune urbaine de Gbessia</span>
+              </li>
+              <li>
+                <a
+                  href="tel:+224622820511"
+                  className="flex items-center gap-2 transition-colors hover:text-foreground"
+                >
+                  <Phone className="size-4 shrink-0 text-primary" />
+                  +224 622 82 05 11
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:mamoudouf009@gmail.com"
+                  className="flex items-center gap-2 transition-colors hover:text-foreground"
+                >
+                  <Mail className="size-4 shrink-0 text-primary" />
+                  mamoudouf009@gmail.com
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   ShoppingCart,
   ShoppingBag,
@@ -315,8 +315,16 @@ export default function ProduitsPage() {
   const [recherche, setRecherche] = useState('')
   const [categorie, setCategorie] = useState<Categorie | 'Tout'>('Tout')
   const [panier, setPanier] = useState<Record<number, number>>({})
+  const [scrolled, setScrolled] = useState(false)
   const { theme, toggleTheme } = useTheme()
   const { utilisateur, deconnecter } = useAuth()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const nombreArticlesPanier = Object.values(panier).reduce((total, q) => total + q, 0)
 
@@ -369,7 +377,12 @@ export default function ProduitsPage() {
   return (
     <div className="min-h-svh bg-background">
       {/* En-tête */}
-      <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
+      <header
+        className={cn(
+          'sticky top-0 z-10 border-b bg-background/80 backdrop-blur transition-shadow duration-300',
+          scrolled ? 'shadow-sm' : 'border-transparent'
+        )}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Logo />
           <div className="flex items-center gap-2">
@@ -387,7 +400,10 @@ export default function ProduitsPage() {
                   <ShoppingCart className="size-4" />
                   Panier
                   {nombreArticlesPanier > 0 && (
-                    <Badge className="absolute -right-2 -top-2 size-5 justify-center rounded-full p-0 tabular-nums">
+                    <Badge
+                      key={nombreArticlesPanier}
+                      className="absolute -right-2 -top-2 size-5 animate-in justify-center rounded-full p-0 tabular-nums zoom-in-75 duration-300"
+                    >
                       {nombreArticlesPanier}
                     </Badge>
                   )}
@@ -432,7 +448,7 @@ export default function ProduitsPage() {
         <div className="pointer-events-none absolute -bottom-24 left-[-4rem] size-72 rounded-full bg-cyan-500/15 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
-          <div>
+          <div className="animate-in fade-in slide-in-from-bottom-6 duration-700">
             <Badge variant="secondary" className="mb-5 border border-primary/20 bg-primary/10 text-primary">
               ✨ Nouvelle collection été
             </Badge>
@@ -448,13 +464,13 @@ export default function ProduitsPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button size="lg" asChild>
+              <Button size="lg" className="rounded-full shadow-lg shadow-primary/25" asChild>
                 <a href="#produits">
                   Découvrir la collection
                   <ArrowRight className="size-4" />
                 </a>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="rounded-full" asChild>
                 <a href="#produits">Voir les promos</a>
               </Button>
             </div>
@@ -477,7 +493,10 @@ export default function ProduitsPage() {
 
           {/* Cartes produits décoratives */}
           <div className="relative hidden h-80 lg:block" aria-hidden="true">
-            <Card className="absolute left-4 top-2 w-52 -rotate-6 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
+            <Card
+              style={{ animationDelay: '150ms' }}
+              className="absolute left-4 top-2 w-52 -rotate-6 gap-0 py-0 shadow-xl animate-in fade-in zoom-in-95 duration-700 fill-mode-both transition-transform hover:rotate-0"
+            >
               <img
                 src={produits[0].image}
                 alt={produits[0].nom}
@@ -490,7 +509,10 @@ export default function ProduitsPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="absolute right-2 top-24 w-52 rotate-6 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
+            <Card
+              style={{ animationDelay: '300ms' }}
+              className="absolute right-2 top-24 w-52 rotate-6 gap-0 py-0 shadow-xl animate-in fade-in zoom-in-95 duration-700 fill-mode-both transition-transform hover:rotate-0"
+            >
               <img
                 src={produits[10].image}
                 alt={produits[10].nom}
@@ -503,7 +525,10 @@ export default function ProduitsPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="absolute bottom-2 left-16 w-52 -rotate-3 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
+            <Card
+              style={{ animationDelay: '450ms' }}
+              className="absolute bottom-2 left-16 w-52 -rotate-3 gap-0 py-0 shadow-xl animate-in fade-in zoom-in-95 duration-700 fill-mode-both transition-transform hover:rotate-0"
+            >
               <img
                 src={produits[7].image}
                 alt={produits[7].nom}
@@ -540,8 +565,11 @@ export default function ProduitsPage() {
               texte: 'Simple, rapide, remboursement immédiat.',
             },
           ].map(({ icon: Icon, titre, texte }) => (
-            <div key={titre} className="flex items-start gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div
+              key={titre}
+              className="flex items-start gap-3 rounded-2xl border border-transparent bg-background p-4 transition-all hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md"
+            >
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Icon className="size-5" />
               </div>
               <div>
@@ -601,10 +629,11 @@ export default function ProduitsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {produitsFiltres.map((produit) => (
+            {produitsFiltres.map((produit, index) => (
               <Card
                 key={produit.id}
-                className="group relative flex h-full flex-col overflow-hidden py-0 gap-0 border-border/60 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+                style={{ animationDelay: `${Math.min(index, 8) * 60}ms` }}
+                className="group relative flex h-full flex-col overflow-hidden py-0 gap-0 border-border/60 animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-both transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
               >
                 {produit.badge && (
                   <Badge className="absolute left-3 top-3 z-10" variant="default">

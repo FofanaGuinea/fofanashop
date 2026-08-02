@@ -14,7 +14,10 @@ import {
   Minus,
   Plus,
   Trash2,
+  ArrowRight,
+  Mail,
 } from 'lucide-react'
+import { GithubIcon, XIcon, InstagramIcon } from '@/components/SocialIcons'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -437,40 +440,146 @@ export default function ProduitsPage() {
       </header>
 
       {/* Bandeau héro */}
-      <section className="relative overflow-hidden border-b bg-gradient-to-br from-primary/10 via-background to-background">
-        <div className="pointer-events-none absolute -top-24 right-0 size-72 rounded-full bg-primary/10 blur-3xl" />
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <Badge variant="secondary" className="mb-4">
-            ✨ Nouvelle collection été
-          </Badge>
-          <h1 className="max-w-xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-            Le meilleur de la tech, choisi pour vous
-          </h1>
-          <p className="mt-3 max-w-md text-muted-foreground">
-            Des accessoires soigneusement sélectionnés, testés et garantis 2 ans.
-          </p>
+      <section className="relative overflow-hidden border-b bg-dot-grid">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
+        <div className="pointer-events-none absolute -top-32 right-[-4rem] size-96 rounded-full bg-primary/25 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 left-[-4rem] size-72 rounded-full bg-cyan-500/15 blur-3xl" />
 
-          <div className="mt-6 flex flex-wrap gap-3 text-sm">
-            <div className="flex items-center gap-1.5 rounded-full border bg-background/70 px-3 py-1.5">
-              <Truck className="size-4 text-primary" />
-              Livraison gratuite
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
+          <div>
+            <Badge variant="secondary" className="mb-5 border border-primary/20 bg-primary/10 text-primary">
+              ✨ Nouvelle collection été
+            </Badge>
+            <h1 className="max-w-xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+              Le meilleur de la tech,{' '}
+              <span className="bg-gradient-to-r from-primary to-cyan-500 bg-clip-text text-transparent">
+                choisi pour vous
+              </span>
+            </h1>
+            <p className="mt-4 max-w-md text-lg text-muted-foreground text-balance">
+              Des accessoires soigneusement sélectionnés, testés et garantis 2 ans.
+              Livrés chez vous en un clin d'œil.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button size="lg" asChild>
+                <a href="#produits">
+                  Découvrir la collection
+                  <ArrowRight className="size-4" />
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <a href="#produits">Voir les promos</a>
+              </Button>
             </div>
-            <div className="flex items-center gap-1.5 rounded-full border bg-background/70 px-3 py-1.5">
-              <ShieldCheck className="size-4 text-primary" />
-              Garantie 2 ans
+
+            <div className="mt-10 grid grid-cols-3 gap-6 border-t pt-6 sm:max-w-md">
+              <div>
+                <p className="text-2xl font-bold tracking-tight">12+</p>
+                <p className="text-sm text-muted-foreground">Produits</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold tracking-tight">4.6/5</p>
+                <p className="text-sm text-muted-foreground">Note moyenne</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold tracking-tight">1 500+</p>
+                <p className="text-sm text-muted-foreground">Clients ravis</p>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 rounded-full border bg-background/70 px-3 py-1.5">
-              <RotateCcw className="size-4 text-primary" />
-              Retour sous 30 jours
-            </div>
+          </div>
+
+          {/* Cartes produits décoratives */}
+          <div className="relative hidden h-80 lg:block" aria-hidden="true">
+            <Card className="absolute left-4 top-2 w-52 -rotate-6 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
+              <CardHeader
+                className={cn(
+                  'flex items-center justify-center bg-gradient-to-br p-6',
+                  produits[0].degrade
+                )}
+              >
+                <span className="text-4xl">{produits[0].emoji}</span>
+              </CardHeader>
+              <CardContent className="space-y-1 p-3.5">
+                <p className="text-sm font-semibold">{produits[0].nom}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {produits[0].prix.toFixed(2)} €
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="absolute right-2 top-24 w-52 rotate-6 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
+              <CardHeader
+                className={cn(
+                  'flex items-center justify-center bg-gradient-to-br p-6',
+                  produits[10].degrade
+                )}
+              >
+                <span className="text-4xl">{produits[10].emoji}</span>
+              </CardHeader>
+              <CardContent className="space-y-1 p-3.5">
+                <p className="text-sm font-semibold">{produits[10].nom}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {produits[10].prix.toFixed(2)} €
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="absolute bottom-2 left-16 w-52 -rotate-3 gap-0 py-0 shadow-xl transition-transform hover:rotate-0">
+              <CardHeader
+                className={cn(
+                  'flex items-center justify-center bg-gradient-to-br p-6',
+                  produits[7].degrade
+                )}
+              >
+                <span className="text-4xl">{produits[7].emoji}</span>
+              </CardHeader>
+              <CardContent className="space-y-1 p-3.5">
+                <p className="text-sm font-semibold">{produits[7].nom}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {produits[7].prix.toFixed(2)} €
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      <main className="mx-auto max-w-6xl px-6 py-10">
+      {/* Pourquoi nous choisir */}
+      <section className="border-b bg-muted/30">
+        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-10 sm:grid-cols-3">
+          {[
+            {
+              icon: Truck,
+              titre: 'Livraison gratuite',
+              texte: 'Offerte dès 30 € d\'achat, partout en France.',
+            },
+            {
+              icon: ShieldCheck,
+              titre: 'Garantie 2 ans',
+              texte: 'Sur l\'ensemble de notre catalogue, sans condition.',
+            },
+            {
+              icon: RotateCcw,
+              titre: 'Retour sous 30 jours',
+              texte: 'Simple, rapide, remboursement immédiat.',
+            },
+          ].map(({ icon: Icon, titre, texte }) => (
+            <div key={titre} className="flex items-start gap-3">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Icon className="size-5" />
+              </div>
+              <div>
+                <p className="font-semibold">{titre}</p>
+                <p className="text-sm text-muted-foreground">{texte}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <main id="produits" className="mx-auto max-w-6xl scroll-mt-20 px-6 py-14">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Nos produits</h2>
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Nos produits</h2>
             <p className="text-sm text-muted-foreground">
               {produitsFiltres.length} article{produitsFiltres.length > 1 ? 's' : ''}{' '}
               disponible{produitsFiltres.length > 1 ? 's' : ''}
@@ -518,7 +627,7 @@ export default function ProduitsPage() {
             {produitsFiltres.map((produit) => (
               <Card
                 key={produit.id}
-                className="group overflow-hidden py-0 gap-0 transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="group flex h-full flex-col overflow-hidden py-0 gap-0 border-border/60 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
               >
                 <CardHeader
                   className={cn(
@@ -538,11 +647,13 @@ export default function ProduitsPage() {
                     {produit.emoji}
                   </span>
                 </CardHeader>
-                <CardContent className="space-y-1.5 p-5">
+                <CardContent className="flex-1 space-y-1.5 p-5">
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold leading-tight">{produit.nom}</h3>
                   </div>
-                  <p className="text-sm text-muted-foreground">{produit.description}</p>
+                  <p className="line-clamp-2 text-sm text-muted-foreground">
+                    {produit.description}
+                  </p>
                   <div className="flex items-center justify-between pt-1">
                     <Etoiles note={produit.note} />
                     <span className="text-xs text-muted-foreground">
@@ -552,7 +663,7 @@ export default function ProduitsPage() {
                 </CardContent>
                 <CardFooter className="flex items-center justify-between p-5 pt-0">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-lg font-semibold">
+                    <span className="text-lg font-semibold text-primary">
                       {produit.prix.toFixed(2)} €
                     </span>
                     {produit.ancienPrix && (
@@ -572,8 +683,100 @@ export default function ProduitsPage() {
         )}
       </main>
 
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        © 2026 FOFANA Shop — Interface de démonstration React + Vite + shadcn/ui
+      <footer className="border-t bg-muted/30">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-3 sm:col-span-2 lg:col-span-1">
+            <Logo />
+            <p className="max-w-xs text-sm text-muted-foreground">
+              Des accessoires tech sélectionnés avec soin, livrés rapidement et garantis
+              2 ans.
+            </p>
+            <div className="flex items-center gap-2 pt-1">
+              <Button variant="outline" size="icon-sm" aria-label="GitHub" asChild>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  <GithubIcon className="size-4" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon-sm" aria-label="X (Twitter)" asChild>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  <XIcon className="size-4" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon-sm" aria-label="Instagram" asChild>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  <InstagramIcon className="size-4" />
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-3 text-sm font-semibold">Boutique</p>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <a href="#produits" className="transition-colors hover:text-foreground">
+                  Tous les produits
+                </a>
+              </li>
+              {categories.map((c) => (
+                <li key={c}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCategorie(c)
+                      document
+                        .getElementById('produits')
+                        ?.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {c}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="mb-3 text-sm font-semibold">Entreprise</p>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              {['À propos', 'Livraison & retours', 'Garantie', 'Contact'].map((lien) => (
+                <li key={lien}>
+                  <a
+                    href="#"
+                    onClick={(e) => e.preventDefault()}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {lien}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="mb-3 text-sm font-semibold">Restez informé</p>
+            <p className="mb-3 text-sm text-muted-foreground">
+              Nos nouveautés et promos, directement par email.
+            </p>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex items-center gap-2"
+            >
+              <div className="relative flex-1">
+                <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                <Input type="email" placeholder="vous@exemple.com" className="pl-9" />
+              </div>
+              <Button size="sm" type="submit">
+                OK
+              </Button>
+            </form>
+          </div>
+        </div>
+
+        <div className="border-t px-6 py-6 text-center text-sm text-muted-foreground">
+          © 2026 FOFANA Shop — Interface de démonstration React + Vite + shadcn/ui
+        </div>
       </footer>
     </div>
   )
